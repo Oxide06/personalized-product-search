@@ -1,36 +1,61 @@
 from src.retrieval.bm25 import BM25SearchEngine
+from src.retrieval.faiss_search import SemanticSearchEngine
 
-INDEX_FILE = "data/indexes/bm25.pkl"
+BM25_INDEX = "data/indexes/bm25.pkl"
+
+
+def print_results(results):
+    print()
+
+    for i, item in enumerate(results, start=1):
+
+        print(f"{i}. {item['title']}")
+
+        print(f"   Score: {item['score']:.4f}")
+
+        print(f"   ASIN : {item['asin']}")
+
+        print()
+
+    print("-" * 60)
 
 
 def main():
 
-    engine = BM25SearchEngine()
+    print("Loading BM25...")
+    bm25 = BM25SearchEngine()
+    bm25.load(BM25_INDEX)
 
-    engine.load(INDEX_FILE)
+    print("Loading Semantic Search...")
+    semantic = SemanticSearchEngine()
 
-    print("\nAmazon Search V1")
-    print("Type 'exit' to quit\n")
+    print("\nAmazon Product Search V2\n")
 
     while True:
 
-        query = input("Search > ")
+        print("\nChoose Mode")
+        print("1. BM25")
+        print("2. Semantic")
+        print("3. Exit")
 
-        if query.lower() == "exit":
+        mode = input("> ")
+
+        if mode == "3":
             break
 
-        results = engine.search(query)
+        query = input("\nSearch > ")
 
-        print()
+        if mode == "1":
+            results = bm25.search(query)
 
-        for i, item in enumerate(results, start=1):
+        elif mode == "2":
+            results = semantic.search(query)
 
-            print(f"{i}. {item['title']}")
-            print(f"   Score: {item['score']:.2f}")
-            print(f"   ASIN : {item['asin']}")
-            print()
+        else:
+            print("Invalid choice")
+            continue
 
-        print("-" * 60)
+        print_results(results)
 
 
 if __name__ == "__main__":

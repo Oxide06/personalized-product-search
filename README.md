@@ -1,75 +1,75 @@
 # Personalized Product Search
 
-A retrieval-based search engine built on Amazon Electronics product metadata.
+A search engine for Amazon Electronics products that combines classical information retrieval and semantic search.
 
-## Overview
+## Features
 
-This project explores how modern search systems retrieve relevant products from a large catalog.
+### V1
 
-Version 1 implements:
-
-* Product ingestion
-* Text preprocessing
+* Amazon Electronics dataset
 * BM25 retrieval
-* Interactive search CLI
-* Persistent BM25 index
+* Product indexing
+* Interactive CLI
 
-Dataset:
+### V2
 
-* Amazon Reviews 2023
-* Electronics metadata
-* 50,000 products
+* Sentence Transformers
+* Dense embeddings
+* FAISS vector search
+* Semantic retrieval
+
+## Dataset
+
+Amazon Reviews 2023 Electronics Metadata
+
+Products Indexed:
+
+* 10,000 products (semantic search)
+* 50,000 products (BM25)
 
 ## Architecture
 
-Query
+### BM25
 
-↓
+Query -> Tokenization -> BM25 -> Results
 
-BM25 Retrieval
+### Semantic Search
 
-↓
-
-Top K Products
+Query -> MiniLM Embedding -> FAISS -> Results
 
 ## Example
 
-Search:
+Query:
 
 gaming mouse
 
-Results:
+Semantic Search retrieves products that are conceptually related even when exact keywords differ.
 
-1. Glorious Model O Gaming Mouse
-2. LinGear Gaming Mouse
-3. RGB Gaming Keyboard and Mouse Combo
+Example:
 
-## Installation
+wireless pointer
 
-```bash
-pip install -r requirements.txt
-```
+can retrieve:
 
-Build index:
+* wireless mouse
+* presenter mouse
+* optical pen mouse
 
-```bash
-python -m src.retrieval.build_index
-```
+## Tech Stack
 
-Run:
-
-```bash
-python -m src.main
-```
+* Python
+* Pandas
+* Rank-BM25
+* Sentence Transformers
+* FAISS
 
 ## Future Work
 
-* Dense Retrieval (Sentence Transformers)
-* FAISS Vector Search
-* Hybrid Search
+* Hybrid Retrieval
 * Personalized Ranking
 * Learning to Rank
+* Recommendation Engine
 
-## Project Status
+## Status
 
-Version 1 Complete
+V2 Complete
