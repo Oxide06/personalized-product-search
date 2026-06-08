@@ -1,0 +1,6 @@
+pandas
+numpy
+datasets==3.6.0
+rank-bm25
+pyarrow
+tqdm
